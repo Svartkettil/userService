@@ -1,15 +1,10 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.User;
-
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.springframework.data.repository.ListCrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
 @Transactional
-public interface UserRepository extends ListCrudRepository {
+public interface UserRepository extends CrudRepository<User, Long> {
 
-    User findById(Long id);
 }
