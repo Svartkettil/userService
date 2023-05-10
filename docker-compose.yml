@@ -3,14 +3,14 @@ services:
   userservice:
     build: .
     depends_on:
-      - userservice-mysql-1
+      - userservice-mysql
     ports:
       - "8081:8081"
     environment:
-      DB_URL: userservice-mysql:3309/demo
+      DB_URL: userservice-mysql:3306/userservice-mysql
       DB_USER: developer
       DB_PASS: password
-  userservice-mysql-1:
+  userservice-mysql:
     image: "mysql:latest"
     container_name: userservice-mysql
     volumes:
@@ -18,7 +18,7 @@ services:
     environment:
       MYSQL_ROOT_HOST: "%"
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: demo
+      MYSQL_DATABASE: userservice-mysql
       MYSQL_USER: developer
       MYSQL_PASSWORD: password
       MYSQL_HOST: '%'
