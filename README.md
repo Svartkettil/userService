@@ -1,50 +1,61 @@
-# Spring Boot Application -User Microservice
+# Spring Boot Application - User Microservice
 
-This is a sample Spring Boot application that creates, manages, saves and presents a registry of users. The different users contains:
+This is a Spring Boot application that creates, manages, saves and presents a registry of users. The different users contains:
 
-- username
-- age
-- biography
-- userimage
+- User id
+- Username
+- Age
+- Biography
+- Userimage
 
-Runs on port 8081
+The application runs on port 8081.
 
 ## Getting Started
-Start a mySQL docker container and run it's image:
-
+Start the application together with its dependencies:
 ```
-docker compose --build up
+docker compose up --build
 ```
 
 ## Endpoints
 The following endpoints are available:
 
-Endpoint: `POST /users`
-Request Parameters:
+### `POST /users`
 
-- user - The .json file to upload 
+Request body parameters:
+
+- user - The json payload to upload
 - imageFile - The image file to upload
 
 
-Endpoint: `GET /users/{id}`
+### `GET /users/{id}`
+
+Returns the username of the id.
+
+### `GET /users/{id}/image`
+
+Returns the userimage of the id.
 
 
-returns the username of the id
+### `PUT /users/{id}`
 
-Endpoint: `GET /users/{id}/image`
+Request body parameter:
+- user - The json payload to upload
+- imageFile - The image file to upload
 
-returns the userimage of the id
+Updates the user of the id and returns the username.
+
+### `DELETE /users/{id}`
+
+Deletes the user of the id.
 
 ## Responses
-- 200 OK if there is a user or an image to return
-- 500 INTERNAL SERVER ERROR if there is no matching id
-- 500 INTERNAL SERVER ERROR if trying to add a different file than:
-
-
-- jpg
-- jpeg
-- png
-- webp
-- avif
-- gif
-- svg
+- 200 OK if there is a user or an image to return.
+- 500 INTERNAL SERVER ERROR if there is no matching id.
+- 500 INTERNAL SERVER ERROR if trying to add a different image file than:
+  - jpg
+  - jpeg
+  - png
+  - webp
+  - avif
+  - gif
+  - svg

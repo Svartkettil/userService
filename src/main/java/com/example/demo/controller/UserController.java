@@ -61,8 +61,8 @@ public class UserController{
                 .body(user.get().getUserImage().getPicByte());
     }
 
-    @PutMapping("/{id}")
-    void updateUserById(@PathVariable long id, @RequestBody User user)  {
+    @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    void updateUserById(@PathVariable long id, @RequestPart User user)  {
         var updateUser = userRepository.findById(id).orElseThrow();
         updateUser.setUsername(user.getUsername());
         updateUser.setAge(user.getAge());

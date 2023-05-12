@@ -22,7 +22,7 @@ public class User {
     @JoinColumn (name = "userimage_id", referencedColumnName = "id")
     private UserImage userImage;
 
-    public User(String username, int age, String biography, String linkToImage, UserImage userImage) {
+    public User(String username, int age, String biography, UserImage userImage) {
         this.username = username;
         this.age = age;
         this.biography = biography;
