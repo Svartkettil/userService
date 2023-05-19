@@ -1,13 +1,34 @@
 version: "3.9"
 services:
   userservice:
-    build: .
+    image: ghcr.io/chatgut/userservice3:latest
     depends_on:
       - userservice-mysql
     ports:
       - "8002:8081"
     environment:
       DB_URL: userservice-mysql:3306/userservice-mysql
+      DB_USER: developer
+      DB_PASS: password
+  imageservice:
+    image: ghcr.io/chatgut/imageservicebov:sha-925024f
+    depends_on:
+      - imageservice-mysql
+    ports:
+      - "8001:8001"
+    environment:
+      DB_URL: imageservice-mysql:3306/imageservice-mysql
+      DB_USER: developer
+      DB_PASS: password
+  authservice:
+    image: ghcr.io/chatgut/authservice2:latest
+    depends_on:
+      - authservice-mysql
+    container_name: authservice
+    ports:
+      - "8003:8080"
+    environment:
+      DB_URL: authservice-mysql:3306/authservice-mysql
       DB_USER: developer
       DB_PASS: password
   userservice-mysql:
@@ -24,6 +45,36 @@ services:
       MYSQL_HOST: '%'
     ports:
       - "3309:3306"
+  imageservice-mysql:
+    image: "mysql:latest"
+    container_name: imageservice-mysql
+    volumes:
+      - db_mysql2:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: imageservice-mysql
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: '%'
+    ports:
+      - "3310:3306"
+  authservice-mysql:
+    image: 'mysql:latest'
+    container_name: authservice-mysql
+    volumes:
+      - db_mysql3:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: authservice-mysql
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_HOST: '%'
+    ports:
+      - "3307:3307"
 volumes:
   db_mysql:
+  db_mysql2:
+  db_mysql3:
 
