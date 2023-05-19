@@ -10,8 +10,8 @@ RUN java -Djarmode=layertools -jar application.jar extract
 FROM eclipse-temurin:20-jre
 RUN adduser --system --group spring
 USER spring:spring
-ENV PORT 8002
-EXPOSE 8002
+ENV PORT 8081
+EXPOSE 8081
 WORKDIR application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/snapshot-dependencies/ ./
